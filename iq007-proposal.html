@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQ007 — Digital Transformation Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #001F3D;
+            --blue: #003366;
+            --blue2: #0A4C8C;
+            --orange: #FF7A00;
+            --orange2: #FFB35C;
+            --gold: #FFD166;
+            --ink: #0F2038;
+            --gray: #5B6B82;
+            --line: #E4EAF1;
+            --white: #fff;
+            --bg-tint: #F5F8FC;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background: #0B1420;
+        }
+        h1,
+        h2,
+        h3,
+        .rubik {
+            font-family: 'Rubik', sans-serif;
+        }
+        .quote {
+            font-family: 'Caveat', cursive;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ---- frame chrome: makes each section read like a Figma page ---- */
+        .frame {
+            position: relative;
+            min-height: 100vh;
+            padding: 64px 0 70px;
+        }
+        .frame-tag {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            font-family: 'Rubik';
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: rgba(255, 255, 255, .55);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .frame-tag.dark-on-light {
+            color: #9AACC2;
+        }
+        .frame-tag::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            background: var(--orange);
+            display: inline-block;
+        }
+        .frame-num {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-family: 'Rubik';
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .4);
+            letter-spacing: .05em;
+        }
+        .frame-num.dark-on-light {
+            color: #B7C4D4;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            letter-spacing: .02em;
+        }
+        .eyebrow.on-dark {
+            background: rgba(255, 209, 102, .12);
+            border: 1px solid rgba(255, 209, 102, .4);
+            color: var(--gold);
+        }
+        .eyebrow.on-light {
+            background: #FFE7CF;
+            border: 1px solid #FFD1A3;
+            color: #B45300;
+        }
+
+        h1.title {
+            font-size: 44px;
+            line-height: 1.14;
+            font-weight: 900;
+            margin: 0 0 6px;
+            color: #fff;
+        }
+        h1.title .sub-en {
+            display: block;
+            font-family: 'Inter';
+            font-weight: 500;
+            font-size: 17px;
+            color: #9FB4CC;
+            margin-top: 10px;
+            letter-spacing: 0;
+        }
+        h2.section-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 0 6px;
+        }
+        h2.section-title .sub-en {
+            display: block;
+            font-family: 'Inter';
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--gray);
+            margin-top: 6px;
+        }
+        .on-dark h2.section-title {
+            color: #fff;
+        }
+        .on-dark h2.section-title .sub-en {
+            color: #9FB4CC;
+        }
+        .on-light h2.section-title {
+            color: var(--blue);
+        }
+
+        .section-head {
+            max-width: 720px;
+            margin: 0 auto 46px;
+            text-align: center;
+        }
+
+        /* ================= COVER ================= */
+        .cover {
+            background:
+                radial-gradient(circle at 15% 15%, rgba(255, 122, 0, .22), transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(10, 76, 140, .4), transparent 50%),
+                linear-gradient(180deg, #00152B, #001F3D 55%, #00284d);
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .cover .stars {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#ffffff22 1px, transparent 1px);
+            background-size: 36px 36px;
+            opacity: .45;
+        }
+        .cover-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+        }
+        .cover-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Rubik';
+            font-weight: 900;
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 60px;
+        }
+        .cover-logo img {
+            height: 120px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .3));
+        }
+        .conf-tag {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: .12em;
+            color: #7E93AC;
+            border: 1px solid rgba(255, 255, 255, .18);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+            font-weight: 600;
+        }
+        .cover-foot {
+            position: absolute;
+            bottom: 36px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            color: #8098B3;
+            font-size: 12.5px;
+            z-index: 2;
+        }
+        .cover-foot b {
+            color: #fff;
+        }
+
+        .fox-hero {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            filter: drop-shadow(0 40px 50px rgba(0, 0, 0, .55));
+            animation: floaty 5s ease-in-out infinite;
+            display: block;
+        }
+        @keyframes floaty {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        /* ================= WHY UPGRADE ================= */
+        .why {
+            background: #0B1420;
+        }
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .compare-card {
+            border-radius: 22px;
+            padding: 32px;
+        }
+        .compare-card.old {
+            background: #160E0B;
+            border: 1px solid #3A2318;
+        }
+        .compare-card.new {
+            background: linear-gradient(160deg, #0A2A4A, #001830);
+            border: 1px solid rgba(255, 122, 0, .35);
+        }
+        .compare-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .compare-head .logo-chip {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .old .logo-chip {
+            background: #3A2318;
+            color: #FF9270;
+        }
+        .new .logo-chip {
+            background: var(--orange);
+            color: #fff;
+        }
+        .compare-head h3 {
+            margin: 0;
+            color: #fff;
+            font-size: 17px;
+        }
+        .compare-head span {
+            font-size: 12px;
+            color: #9FB4CC;
+        }
+        .compare-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .crow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+            font-size: 14px;
+        }
+        .crow:last-child {
+            border-bottom: none;
+        }
+        .crow .label {
+            color: #CBD8E8;
+        }
+        .crow .label .en {
+            display: block;
+            font-size: 11.5px;
+            color: #7E93AC;
+        }
+        .mark {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .mark.no {
+            background: rgba(255, 80, 60, .15);
+            color: #FF6B57;
+        }
+        .mark.yes {
+            background: rgba(60, 200, 120, .15);
+            color: #3CD27C;
+        }
+
+        /* ================= TIER CARDS ================= */
+        .tiers {
+            background: var(--bg-tint);
+        }
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+        .tier-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 30px 26px;
+            border: 1.5px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .tier-card.popular {
+            border-color: var(--orange);
+            box-shadow: 0 24px 50px rgba(255, 122, 0, .18);
+            transform: translateY(-10px);
+        }
+        .tier-card.premium {
+            background: linear-gradient(165deg, #001F3D, #0A2A4A);
+            border-color: rgba(255, 209, 102, .4);
+            color: #fff;
+        }
+        .ribbon {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--orange);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            letter-spacing: .03em;
+            white-space: nowrap;
+        }
+        .tier-name {
+            font-family: 'Rubik';
+            font-weight: 800;
+            font-size: 20px;
+            margin: 6px 0 2px;
+        }
+        .premium .tier-name {
+            color: #fff;
+        }
+        .tier-name-en {
+            font-size: 12.5px;
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .premium .tier-name-en {
+            color: #9FB4CC;
+        }
+        .tier-price {
+            font-family: 'Rubik';
+            font-weight: 900;
+            font-size: 30px;
+            color: var(--blue);
+            margin-bottom: 2px;
+        }
+        .premium .tier-price {
+            color: var(--gold);
+        }
+        .tier-price-en {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        .premium .tier-price-en {
+            color: #9FB4CC;
+        }
+        .tier-feats {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 26px;
+            flex: 1;
+        }
+        .tier-feats li {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 13.6px;
+            border-bottom: 1px dashed var(--line);
+        }
+        .premium .tier-feats li {
+            border-bottom: 1px dashed rgba(255, 255, 255, .12);
+        }
+        .tier-feats li:last-child {
+            border-bottom: none;
+        }
+        .tier-feats .en {
+            display: block;
+            font-size: 11.5px;
+            color: var(--gray);
+        }
+        .premium .tier-feats .en {
+            color: #9FB4CC;
+        }
+        .check {
+            color: #1B8A3D;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .premium .check {
+            color: var(--gold);
+        }
+        .tier-btn {
+            display: block;
+            text-align: center;
+            background: var(--blue);
+            color: #fff;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: 'Rubik';
+            font-size: 14px;
+        }
+        .tier-card.popular .tier-btn {
+            background: var(--orange);
+        }
+        .premium .tier-btn {
+            background: linear-gradient(120deg, var(--orange), #FFB35C);
+        }
+
+        /* ================= ARCHITECTURE ================= */
+        .arch {
+            background: #0B1420;
+        }
+        .arch-diagram {
+            background: #0A1B2E;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 40px;
+        }
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .node {
+            background: rgba(255, 255, 255, .05);
+            border: 1.5px solid rgba(255, 255, 255, .14);
+            border-radius: 14px;
+            padding: 16px 14px;
+            text-align: center;
+            min-width: 118px;
+            color: #fff;
+        }
+        .node .ic {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .node .t {
+            font-size: 12.5px;
+            font-weight: 700;
+            font-family: 'Rubik';
+        }
+        .node .e {
+            font-size: 10px;
+            color: #8FA3BB;
+        }
+        .node.accent {
+            border-color: var(--orange);
+            background: rgba(255, 122, 0, .1);
+        }
+        .node.gold {
+            border-color: var(--gold);
+            background: rgba(255, 209, 102, .08);
+        }
+        .arrow {
+            color: #3E5674;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .branch {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .arch-caption {
+            text-align: center;
+            color: #8FA3BB;
+            font-size: 12.5px;
+            margin-top: 22px;
+        }
+
+        /* ================= COMPLIANCE ================= */
+        .compliance {
+            background: linear-gradient(120deg, var(--blue), #0A4C8C);
+        }
+        .comp-grid {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 44px;
+            align-items: center;
+        }
+        .shield {
+            width: 180px;
+            margin: 0 auto;
+            display: block;
+        }
+        .comp-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .comp-list li {
+            display: flex;
+            gap: 14px;
+            color: #fff;
+            font-size: 14.5px;
+            align-items: flex-start;
+        }
+        .comp-list .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+        .comp-list .en {
+            display: block;
+            font-size: 12px;
+            color: #CFE0F2;
+            margin-top: 2px;
+        }
+        .badge-152 {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .25);
+            padding: 10px 18px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        /* ================= TESTIMONIALS ================= */
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        .test-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 26px;
+        }
+        .stars {
+            color: var(--orange);
+            font-size: 14px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        .test-card .quote {
+            font-size: 20px;
+            color: var(--ink);
+            line-height: 1.4;
+            min-height: 80px;
+        }
+        .test-who {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--blue-tint, #EAF3FB);
+            background: linear-gradient(135deg, var(--orange), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-family: 'Rubik';
+            font-size: 13px;
+        }
+        .test-who .nm {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+        .test-who .rl {
+            font-size: 11.5px;
+            color: var(--gray);
+        }
+        .placeholder-note {
+            text-align: center;
+            margin-top: 26px;
+            font-size: 12px;
+            color: #9AACC2;
+        }
+
+        /* ================= CTA ================= */
+        .cta {
+            background: radial-gradient(circle at 50% 0%, #0A2A4A, #001220 70%);
+            text-align: center;
+        }
+        .cta h2 {
+            font-size: 38px;
+            color: #fff;
+            margin: 0 0 8px;
+            font-weight: 900;
+        }
+        .cta .sub-en {
+            color: #9FB4CC;
+            font-size: 16px;
+            margin-bottom: 34px;
+            display: block;
+        }
+        .cta-btn-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 34px;
+        }
+        .cta-btn {
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-family: 'Rubik';
+            font-size: 15.5px;
+        }
+        .cta-btn.primary {
+            background: linear-gradient(120deg, var(--orange), var(--orange2));
+            color: #fff;
+            box-shadow: 0 14px 30px rgba(255, 122, 0, .4);
+        }
+        .cta-btn.ghost {
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            border: 1.5px solid rgba(255, 255, 255, .25);
+        }
+        .cta-channels {
+            display: flex;
+            gap: 26px;
+            justify-content: center;
+            color: #9FB4CC;
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+        .cta-channels b {
+            color: #fff;
+        }
+        .agency-sign {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            color: #6E86A2;
+            font-size: 12px;
+        }
+
+        /* page dot nav */
+        .pagenav {
+            position: fixed;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 200;
+        }
+        .pagenav a {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .25);
+            border: 1px solid rgba(255, 255, 255, .3);
+            transition: .2s;
+        }
+        .pagenav a.on-light-page {
+            background: rgba(0, 51, 102, .18);
+            border-color: rgba(0, 51, 102, .3);
+        }
+        .pagenav a:hover {
+            background: var(--orange);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media(max-width:920px) {
+            .cover-grid,
+            .compare,
+            .tier-grid,
+            .comp-grid,
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            .tier-card.popular {
+                transform: none;
+            }
+            h1.title {
+                font-size: 30px;
+            }
+            .pagenav {
+                display: none;
+            }
+            .flow-row {
+                flex-direction: column;
+            }
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+        @media print {
+            .pagenav {
+                display: none;
+            }
+            .frame {
+                page-break-after: always;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="pagenav">
+        <a href="#p1"></a><a href="#p2"></a><a href="#p3"></a><a href="#p4"></a><a href="#p5"></a><a href="#p6"></a><a href="#p7"></a>
+    </nav>
+
+    <!-- ============ PAGE 1 — COVER ============ -->
+    <section class="frame cover" id="p1">
+        <div class="stars"></div>
+        <div class="frame-tag">Frame 01 / Cover</div>
+        <div class="frame-num">1920 × 1080</div>
+        <div class="wrap cover-grid">
+            <div>
+                <div class="cover-logo">
+                    <img src="images/logo007.png" alt="IQ007 Logo">
+                    
+                </div>
+                <div class="conf-tag">КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ · CONFIDENTIAL PROPOSAL</div>
+                <h1 class="title">Цифровая трансформация IQ007
+                    <span class="sub-en">IQ007 Digital Transformation — from a Tilda page to an AI-automated growth platform</span>
+                </h1>
+                <p style="color:#B9CCE2;font-size:16px;max-width:460px;line-height:1.6;margin:18px 0 0;">
+                    От статичного сайта на Tilda — к автоматизированной платформе с ИИ, Telegram/WhatsApp-ботами и панелью аналитики для управления школой в реальном времени.
+                </p>
+            </div>
+            <div style="display:flex;justify-content:center;">
+                <img class="fox-hero" src="Images/fox.png" alt="IQ007 Fox Mascot">
+            </div>
+        </div>
+        <div class="cover-foot wrap" style="padding:0;">
+            <div>Подготовлено для <b>IQ007</b> · Digital Growth Studio · Июль 2026</div>
+            <div>Prepared for <b>IQ007</b> · July 2026 · v1.0</div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 2 — WHY UPGRADE FROM TILDA ============ -->
+    <section class="frame why on-dark" id="p2">
+        <div class="frame-tag">Frame 02 / Problem</div>
+        <div class="frame-num">Why upgrade</div>
+        <div class="wrap">
+            <div class="section-head">
+                <span class="eyebrow on-dark">⚠️ ТЕКУЩАЯ СИТУАЦИЯ · CURRENT STATE</span>
+                <h2 class="section-title">Почему пора уйти с Tilda?
+                    <span class="sub-en">Why is it time to outgrow Tilda?</span>
+                </h2>
+            </div>
+            <div class="compare reveal">
+                <div class="compare-card old">
+                    <div class="compare-head">
+                        <div class="logo-chip">T</div>
+                        <div><h3>Сайт на Tilda</h3><span>Current Tilda website</span></div>
+                    </div>
+                    <div class="compare-rows">
+                        <div class="crow"><span class="label">Автоматизация заявок<span class="en">Lead automation</span></span><span class="mark no">✕</span></div>
+                        <div class="crow"><span class="label">ИИ-ассистент<span class="en">AI assistant</span></span><span class="mark no">✕</span></div>
+                        <div class="crow"><span class="label">Админ-панель / дашборд<span class="en">Admin dashboard</span></span><span class="mark no">✕</span></div>
+                        <div class="crow"><span class="label">Аналитика по каналам<span class="en">Per-channel analytics</span></span><span class="mark no">✕</span></div>
+                        <div class="crow"><span class="label">Telegram / WhatsApp боты<span class="en">Telegram / WhatsApp bots</span></span><span class="mark no">✕</span></div>
+                        <div class="crow"><span class="label">Соответствие 152-ФЗ (локально)<span class="en">152-FZ local compliance</span></span><span class="mark no">✕</span></div>
+                        <div class="crow"><span class="label">Масштабируемость под MicroSaaS<span class="en">MicroSaaS scalability</span></span><span class="mark no">✕</span></div>
+                    </div>
+                </div>
+                <div class="compare-card new">
+                    <div class="compare-head">
+                        <div class="logo-chip">IQ</div>
+                        <div><h3>Платформа IQ007</h3><span>The IQ007 Platform</span></div>
+                    </div>
+                    <div class="compare-rows">
+                        <div class="crow"><span class="label">Автоматизация заявок<span class="en">Lead automation</span></span><span class="mark yes">✓</span></div>
+                        <div class="crow"><span class="label">ИИ-ассистент (Ollama)<span class="en">AI assistant (Ollama)</span></span><span class="mark yes">✓</span></div>
+                        <div class="crow"><span class="label">Админ-панель / дашборд<span class="en">Admin dashboard</span></span><span class="mark yes">✓</span></div>
+                        <div class="crow"><span class="label">Аналитика по каналам<span class="en">Per-channel analytics</span></span><span class="mark yes">✓</span></div>
+                        <div class="crow"><span class="label">Telegram / WhatsApp / VK боты<span class="en">Telegram / WhatsApp / VK bots</span></span><span class="mark yes">✓</span></div>
+                        <div class="crow"><span class="label">Соответствие 152-ФЗ (локально)<span class="en">152-FZ local compliance</span></span><span class="mark yes">✓</span></div>
+                        <div class="crow"><span class="label">Масштабируемость под MicroSaaS<span class="en">MicroSaaS scalability</span></span><span class="mark yes">✓</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 3 — TIER CARDS ============ -->
+    <section class="frame tiers on-light" id="p3">
+        <div class="frame-tag dark-on-light">Frame 03 / Pricing</div>
+        <div class="frame-num dark-on-light">3 tiers</div>
+        <div class="wrap">
+            <div class="section-head">
+                <span class="eyebrow on-light">💼 ТАРИФЫ · PACKAGES</span>
+                <h2 class="section-title">Выберите свой уровень трансформации
+                    <span class="sub-en">Choose your level of transformation</span>
+                </h2>
+            </div>
+
+            <div class="tier-grid reveal">
+                <!-- ECONOMY -->
+                <div class="tier-card">
+                    <div class="tier-name">Economy</div>
+                    <div class="tier-name-en">Стартовая автоматизация · Starter automation</div>
+                    <div class="tier-price">50 000 ₽</div>
+                    <div class="tier-price-en">50,000 RUB · one-time</div>
+                    <ul class="tier-feats">
+                        <li><span class="check">✓</span><span>Современный лендинг<span class="en">Modern landing page</span></span></li>
+                        <li><span class="check">✓</span><span>Базовое SEO<span class="en">Basic SEO setup</span></span></li>
+                        <li><span class="check">✓</span><span>Уведомления в Telegram<span class="en">Telegram notifications</span></span></li>
+                        <li><span class="check">✓</span><span>Простая форма записи на пробный урок<span class="en">Simple trial-lesson booking form</span></span></li>
+                        <li><span class="check">✓</span><span>Локальная база лидов (SQLite)<span class="en">Local lead database (SQLite)</span></span></li>
+                        <li><span class="check">✓</span><span>152-ФЗ: без хранения лишних данных<span class="en">152-FZ: no excess data storage</span></span></li>
+                    </ul>
+                    <a class="tier-btn" href="#p7">Выбрать Economy · Choose Economy</a>
+                </div>
+
+                <!-- STANDARD -->
+                <div class="tier-card popular">
+                    <div class="ribbon">РЕКОМЕНДУЕМ · MOST POPULAR</div>
+                    <div class="tier-name">Standard</div>
+                    <div class="tier-name-en">Умная автоматизация · Smart automation</div>
+                    <div class="tier-price">100 000 ₽</div>
+                    <div class="tier-price-en">100,000 RUB · one-time</div>
+                    <ul class="tier-feats">
+                        <li><span class="check">✓</span><span>Всё из Economy<span class="en">Everything in Economy</span></span></li>
+                        <li><span class="check">✓</span><span>WhatsApp Business<span class="en">WhatsApp Business integration</span></span></li>
+                        <li><span class="check">✓</span><span>Админ-дашборд на n8n<span class="en">n8n admin dashboard</span></span></li>
+                        <li><span class="check">✓</span><span>Автоматическая обработка заявок<span class="en">Automated lead processing</span></span></li>
+                        <li><span class="check">✓</span><span>Аналитика по каналам<span class="en">Per-channel analytics</span></span></li>
+                        <li><span class="check">✓</span><span>ИИ-ассистент на базе Ollama<span class="en">Ollama-powered AI assistant</span></span></li>
+                        <li><span class="check">✓</span><span>Интеграция с Яндекс.Почтой<span class="en">Yandex.Mail integration</span></span></li>
+                    </ul>
+                    <a class="tier-btn" href="#p7">Выбрать Standard · Choose Standard</a>
+                </div>
+
+                <!-- PREMIUM -->
+                <div class="tier-card premium">
+                    <div class="ribbon" style="background:var(--gold);color:#3A2600;">MICROSAAS</div>
+                    <div class="tier-name">Premium</div>
+                    <div class="tier-name-en">Полная платформа · Full platform</div>
+                    <div class="tier-price">от 150 000 ₽</div>
+                    <div class="tier-price-en">from 150,000 RUB</div>
+                    <ul class="tier-feats">
+                        <li><span class="check">✓</span><span>Всё из Standard<span class="en">Everything in Standard</span></span></li>
+                        <li><span class="check">✓</span><span>Telegram + WhatsApp + VK + SMS<span class="en">Full multi-channel integration</span></span></li>
+                        <li><span class="check">✓</span><span>Продвинутый AI-генератор контента<span class="en">Advanced AI content generator</span></span></li>
+                        <li><span class="check">✓</span><span>Собственная CRM<span class="en">Custom CRM</span></span></li>
+                        <li><span class="check">✓</span><span>Мультиагентная система ИИ<span class="en">Multi-agent AI system</span></span></li>
+                        <li><span class="check">✓</span><span>Промокоды и лицензирование<span class="en">Discount codes & licensing</span></span></li>
+                        <li><span class="check">✓</span><span>Расширенная аналитика + PDF-отчёты<span class="en">Extended analytics + PDF export</span></span></li>
+                        <li><span class="check">✓</span><span>3D-анимированное видео на главной<span class="en">3D animated hero video</span></span></li>
+                        <li><span class="check">✓</span><span>Юридический пакет + обучение персонала<span class="en">Legal package + staff training</span></span></li>
+                    </ul>
+                    <a class="tier-btn" href="#p7">Выбрать Premium · Choose Premium</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 4 — ARCHITECTURE ============ -->
+    <section class="frame arch on-dark" id="p4">
+        <div class="frame-tag">Frame 04 / Architecture</div>
+        <div class="frame-num">System flow</div>
+        <div class="wrap">
+            <div class="section-head">
+                <span class="eyebrow on-dark">⚙️ АРХИТЕКТУРА СИСТЕМЫ · SYSTEM ARCHITECTURE</span>
+                <h2 class="section-title">Как всё работает вместе
+                    <span class="sub-en">How everything works together</span>
+                </h2>
+            </div>
+            <div class="arch-diagram reveal">
+                <div class="flow-row">
+                    <div class="node"><div class="ic">👨‍👩‍👧</div><div class="t">Родитель</div><div class="e">Parent</div></div>
+                    <div class="arrow">→</div>
+                    <div class="node"><div class="ic">🌐</div><div class="t">Сайт</div><div class="e">Website</div></div>
+                    <div class="arrow">→</div>
+                    <div class="node accent"><div class="ic">🔗</div><div class="t">n8n (local)</div><div class="e">Automation engine</div></div>
+                    <div class="arrow">→</div>
+                    <div class="branch">
+                        <div class="node" style="min-width:100px;"><div class="ic">✈️</div><div class="t">Telegram</div></div>
+                        <div class="node" style="min-width:100px;"><div class="ic">💬</div><div class="t">WhatsApp</div></div>
+                        <div class="node" style="min-width:100px;"><div class="ic">🅥</div><div class="t">VK</div></div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="node gold"><div class="ic">🤖</div><div class="t">AI (Ollama)</div><div class="e">Local LLM</div></div>
+                    <div class="arrow">→</div>
+                    <div class="node"><div class="ic">📊</div><div class="t">Админ-дашборд</div><div class="e">Admin Dashboard</div></div>
+                    <div class="arrow">→</div>
+                    <div class="node accent"><div class="ic">🗄️</div><div class="t">База данных</div><div class="e">SQLite Database</div></div>
+                </div>
+                <p class="arch-caption">Родитель оставляет заявку на сайте → n8n маршрутизирует её по каналам связи → ИИ Ollama обрабатывает запрос и формирует ответ → результат попадает в дашборд и локальную базу данных.<br>
+                    A parent submits a request on the website → n8n routes it across channels → the local Ollama AI processes the request and drafts a reply → results land in the dashboard and the local database.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 5 — COMPLIANCE ============ -->
+    <section class="frame compliance" id="p5">
+        <div class="frame-tag">Frame 05 / Compliance</div>
+        <div class="frame-num">152-FZ</div>
+        <div class="wrap comp-grid">
+            <svg class="shield reveal" viewBox="0 0 200 220">
+                <path d="M100 10 L180 40 V100 C180 150 145 190 100 210 C55 190 20 150 20 100 V40 Z" fill="#fff" opacity=".08"/>
+                <path d="M100 20 L170 46 V100 C170 145 140 180 100 198 C60 180 30 145 30 100 V46 Z" fill="#fff" opacity=".95"/>
+                <circle cx="100" cy="98" r="34" fill="#FF7A00"/>
+                <path d="M85 98 L96 110 L118 84" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="100" y="160" text-anchor="middle" font-family="Rubik" font-weight="800" font-size="20" fill="#003366">152-ФЗ</text>
+            </svg>
+            <div>
+                <span class="badge-152">🛡️ ЗАЩИТА ДАННЫХ · DATA PROTECTION</span>
+                <h2 class="section-title" style="color:#fff;">Полное соответствие 152-ФЗ
+                    <span class="sub-en" style="color:#CFE0F2;">Full compliance with Federal Law 152-FZ</span>
+                </h2>
+                <ul class="comp-list reveal" style="margin-top:22px;">
+                    <li><span class="dot"></span><span>n8n и ИИ Ollama работают <b>локально</b> — персональные данные детей и родителей не покидают инфраструктуру школы.<span class="en">n8n and the Ollama AI run locally — children's and parents' personal data never leaves the school's infrastructure.</span></span></li>
+                    <li><span class="dot"></span><span>Схема базы данных не содержит избыточных персональных полей.<span class="en">The database schema contains zero unnecessary personal-data columns.</span></span></li>
+                    <li><span class="dot"></span><span>Согласие на обработку данных встроено в каждую форму записи.<span class="en">Consent to data processing is built into every booking form.</span></span></li>
+                    <li><span class="dot"></span><span>Юридический пакет (Премиум) включает политику конфиденциальности и публичную оферту.<span class="en">The Premium legal package includes a privacy policy and public offer agreement.</span></span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 6 — TESTIMONIALS ============ -->
+    <section class="frame tiers on-light" id="p6">
+        <div class="frame-tag dark-on-light">Frame 06 / Social proof</div>
+        <div class="frame-num dark-on-light">Testimonials</div>
+        <div class="wrap">
+            <div class="section-head">
+                <span class="eyebrow on-light">💬 ОТЗЫВЫ · TESTIMONIALS</span>
+                <h2 class="section-title">Что скажут родители после запуска
+                    <span class="sub-en">What parents will say after launch</span>
+                </h2>
+            </div>
+            <div class="test-grid reveal">
+                <div class="test-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="quote quote">«Место для реального отзыва родителя»</div>
+                    <div class="test-who"><div class="avatar">АА</div><div><div class="nm">Имя Фамилия</div><div class="rl">Родитель ученика · Parent</div></div></div>
+                </div>
+                <div class="test-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="quote quote">«Placeholder for a real parent quote»</div>
+                    <div class="test-who"><div class="avatar">ИИ</div><div><div class="nm">Name Surname</div><div class="rl">Parent · Родитель</div></div></div>
+                </div>
+                <div class="test-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="quote quote">«Место для реального отзыва родителя»</div>
+                    <div class="test-who"><div class="avatar">ЕС</div><div><div class="nm">Имя Фамилия</div><div class="rl">Родитель ученика · Parent</div></div></div>
+                </div>
+            </div>
+            <div class="placeholder-note">Отзывы будут собраны и подтверждены на этапе запуска. · Testimonials will be collected and verified at launch.</div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 7 — CTA ============ -->
+    <section class="frame cta" id="p7">
+        <div class="frame-tag">Frame 07 / Call to Action</div>
+        <div class="frame-num">Next step</div>
+        <div class="wrap">
+            <span class="eyebrow on-dark" style="margin-bottom:24px;">🚀 СЛЕДУЮЩИЙ ШАГ · NEXT STEP</span>
+            <h2>Готовы увидеть платформу в действии?
+                <span class="sub-en">Ready to see the platform in action?</span>
+            </h2>
+            <div class="cta-btn-row">
+                <a class="cta-btn primary" href="https://t.me/iq007school" target="_blank">Записаться на бесплатное демо · Book a free demo</a>
+                <a class="cta-btn ghost" href="#p3">Сравнить тарифы · Compare packages</a>
+            </div>
+            <div class="cta-channels">
+                <span>✈️ Telegram: <b>@iq007school</b></span>
+                <span>💬 WhatsApp: <b>+7 999 000-00-00</b></span>
+                <span>✉️ Email: <b>hello@iq007.ru</b></span>
+            </div>
+            <div class="agency-sign">Digital Growth Studio для IQ007 · Digital Growth Studio for IQ007 — Июль 2026 / July 2026</div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: .12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // highlight page dots for light-background frames
+        document.querySelectorAll('.pagenav a').forEach((a, i) => {
+            if ([2, 5].includes(i)) a.classList.add('on-light-page'); // p3 and p6 are light sections (0-indexed)
+        });
+    </script>
+</body>
+</html>
