@@ -602,6 +602,103 @@
             margin-bottom: 18px;
         }
 
+        /* ================= NEW: MONETIZATION & GROWTH ================= */
+        .growth {
+            background: #0B1420;
+        }
+        .growth-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 12px;
+        }
+        .growth-card {
+            background: #0A1B2E;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            padding: 28px 22px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s;
+        }
+        .growth-card:hover {
+            transform: translateY(-4px);
+        }
+        .growth-card .gc-icon {
+            font-size: 32px;
+            margin-bottom: 14px;
+        }
+        .growth-card h3 {
+            font-family: 'Rubik';
+            font-size: 18px;
+            font-weight: 800;
+            margin: 0 0 6px;
+            color: var(--gold);
+        }
+        .growth-card h3 .en {
+            display: block;
+            font-family: 'Inter';
+            font-size: 12px;
+            color: #9FB4CC;
+            font-weight: 500;
+        }
+        .growth-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #CBD8E8;
+            margin: 10px 0 16px;
+            flex: 1;
+        }
+        .growth-card .gc-btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: var(--orange);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 12.5px;
+            color: #fff;
+            text-align: center;
+            transition: background .2s;
+            font-family: 'Rubik';
+            align-self: flex-start;
+        }
+        .growth-card .gc-btn:hover {
+            background: var(--orange2);
+        }
+        .growth-card .gc-btn.alt {
+            background: var(--blue2);
+        }
+        .growth-card .gc-btn.alt:hover {
+            background: var(--blue);
+        }
+        .growth-metrics {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 30px 0 10px;
+            flex-wrap: wrap;
+        }
+        .growth-metrics .metric {
+            text-align: center;
+        }
+        .growth-metrics .metric .num {
+            font-family: 'Rubik';
+            font-weight: 900;
+            font-size: 28px;
+            color: var(--gold);
+            display: block;
+        }
+        .growth-metrics .metric .label {
+            font-size: 12px;
+            color: #9FB4CC;
+        }
+        .growth-metrics .metric .change {
+            font-size: 12px;
+            color: var(--green);
+            font-weight: 700;
+        }
+
         /* ================= TESTIMONIALS ================= */
         .test-grid {
             display: grid;
@@ -764,7 +861,8 @@
             .compare,
             .tier-grid,
             .comp-grid,
-            .test-grid {
+            .test-grid,
+            .growth-grid {
                 grid-template-columns: 1fr;
             }
             .tier-card.popular {
@@ -782,6 +880,9 @@
             .arrow {
                 transform: rotate(90deg);
             }
+            .growth-metrics {
+                gap: 16px;
+            }
         }
         @media print {
             .pagenav {
@@ -797,7 +898,7 @@
 <body>
 
     <nav class="pagenav">
-        <a href="#p1"></a><a href="#p2"></a><a href="#p3"></a><a href="#p4"></a><a href="#p5"></a><a href="#p6"></a><a href="#p7"></a>
+        <a href="#p1"></a><a href="#p2"></a><a href="#p3"></a><a href="#p4"></a><a href="#p5"></a><a href="#p6"></a><a href="#p7"></a><a href="#p8"></a>
     </nav>
 
     <!-- ============ PAGE 1 — COVER ============ -->
@@ -809,7 +910,6 @@
             <div>
                 <div class="cover-logo">
                     <img src="images/logo007.png" alt="IQ007 Logo">
-                    
                 </div>
                 <div class="conf-tag">КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ · CONFIDENTIAL PROPOSAL</div>
                 <h1 class="title">Цифровая трансформация IQ007
@@ -1012,9 +1112,95 @@
         </div>
     </section>
 
-    <!-- ============ PAGE 6 — TESTIMONIALS ============ -->
-    <section class="frame tiers on-light" id="p6">
-        <div class="frame-tag dark-on-light">Frame 06 / Social proof</div>
+    <!-- ============ PAGE 6 — MONETIZATION & GROWTH ============ -->
+    <section class="frame growth on-dark" id="p6">
+        <div class="frame-tag">Frame 06 / Monetization</div>
+        <div class="frame-num">Growth engine</div>
+        <div class="wrap">
+            <div class="section-head">
+                <span class="eyebrow on-dark">💰 МОНЕТИЗАЦИЯ И РОСТ · MONETIZATION & GROWTH</span>
+                <h2 class="section-title">Превращаем платформу в доходный бизнес
+                    <span class="sub-en">Turning the platform into a revenue‑generating business</span>
+                </h2>
+            </div>
+
+            <!-- current traffic metrics -->
+            <div class="growth-metrics reveal">
+                <div class="metric">
+                    <span class="num">2 800</span>
+                    <span class="label">посетителей/мес · visitors/month</span>
+                    <span class="change">↑ 12% за квартал</span>
+                </div>
+                <div class="metric">
+                    <span class="num">12%</span>
+                    <span class="label">конверсия в заявку · lead conversion</span>
+                    <span class="change">↑ целевой показатель 18%</span>
+                </div>
+                <div class="metric">
+                    <span class="num">4.2</span>
+                    <span class="label">средняя глубина просмотра · pages/session</span>
+                    <span class="change">↑ на 15% после обновления</span>
+                </div>
+            </div>
+
+            <div class="growth-grid reveal">
+                <!-- Marketplace -->
+                <div class="growth-card">
+                    <div class="gc-icon">🛒</div>
+                    <h3>Marketplace & Digital Products<span class="en">Встроенный магазин</span></h3>
+                    <p>Разработаем и встроим магазин цифровых товаров: интерактивные рабочие тетради, развивающие игры, видеокурсы и премиум‑контент. Вы получаете <b>пассивный доход</b> и повышаете LTV каждого клиента.</p>
+                    <a class="gc-btn" href="#p7">Узнать подробнее · Learn more</a>
+                </div>
+
+                <!-- Dashboard Upsell -->
+                <div class="growth-card">
+                    <div class="gc-icon">📊</div>
+                    <h3>Dashboard as Upsell Engine<span class="en">Дашборд – двигатель продаж</span></h3>
+                    <p>Родители видят прогресс ребёнка в реальном времени. На основе данных мы предлагаем <b>персонализированные рекомендации</b> и дополнительные услуги. Это увеличивает средний чек и удерживает клиентов.</p>
+                    <a class="gc-btn alt" href="dashboard.html" target="_blank">Посмотреть демо‑дашборд · View demo dashboard</a>
+                </div>
+
+                <!-- Social & Incentives -->
+                <div class="growth-card">
+                    <div class="gc-icon">📱</div>
+                    <h3>Social Sharing & Rewards<span class="en">Социальный вирусный рост</span></h3>
+                    <p>Родители получают <b>бонусы, скидки и эксклюзивные материалы</b> за публикацию успехов детей в соцсетях. Это превращает их в <b>бесплатных амбассадоров</b> – каждый репост приносит новых лидов.</p>
+                    <a class="gc-btn" href="#p7">Обсудить механику · Discuss mechanics</a>
+                </div>
+            </div>
+
+            <!-- additional growth strategies -->
+            <div style="margin-top: 34px; background: #0A1B2E; border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,.06);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div>
+                        <h4 style="color: var(--gold); font-family: 'Rubik'; font-weight: 700; font-size: 16px; margin: 0 0 8px;">🚀 Как мы увеличим трафик</h4>
+                        <ul style="color: #CBD8E8; font-size: 13.5px; line-height: 1.7; padding-left: 20px;">
+                            <li><b>SEO‑оптимизация</b> – рост органического трафика на 30–40%</li>
+                            <li><b>Интеграция соцсетей</b> – автоматический шеринг достижений</li>
+                            <li><b>Реферальная программа</b> – скидки за приведённых друзей</li>
+                            <li><b>Контент‑маркетинг</b> – полезные статьи и видео для родителей</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--gold); font-family: 'Rubik'; font-weight: 700; font-size: 16px; margin: 0 0 8px;">🎯 Дополнительные монетизационные каналы</h4>
+                        <ul style="color: #CBD8E8; font-size: 13.5px; line-height: 1.7; padding-left: 20px;">
+                            <li><b>Premium‑подписка</b> на расширенную аналитику и отчёты</li>
+                            <li><b>Партнёрские интеграции</b> с книжными издательствами и обучающими платформами</li>
+                            <li><b>Онлайн‑курсы</b> для родителей по развитию детей</li>
+                            <li><b>Рекламные места</b> в дашборде и мобильном приложении</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #9FB4CC;">
+                    * Все цифры основаны на реальных данных текущего сайта IQ007 и прогнозах роста после внедрения платформы.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 7 — TESTIMONIALS ============ -->
+    <section class="frame tiers on-light" id="p7">
+        <div class="frame-tag dark-on-light">Frame 07 / Social proof</div>
         <div class="frame-num dark-on-light">Testimonials</div>
         <div class="wrap">
             <div class="section-head">
@@ -1044,9 +1230,9 @@
         </div>
     </section>
 
-    <!-- ============ PAGE 7 — CTA ============ -->
-    <section class="frame cta" id="p7">
-        <div class="frame-tag">Frame 07 / Call to Action</div>
+    <!-- ============ PAGE 8 — CTA ============ -->
+    <section class="frame cta" id="p8">
+        <div class="frame-tag">Frame 08 / Call to Action</div>
         <div class="frame-num">Next step</div>
         <div class="wrap">
             <span class="eyebrow on-dark" style="margin-bottom:24px;">🚀 СЛЕДУЮЩИЙ ШАГ · NEXT STEP</span>
@@ -1074,7 +1260,7 @@
 
         // highlight page dots for light-background frames
         document.querySelectorAll('.pagenav a').forEach((a, i) => {
-            if ([2, 5].includes(i)) a.classList.add('on-light-page'); // p3 and p6 are light sections (0-indexed)
+            if ([2, 6].includes(i)) a.classList.add('on-light-page'); // p3 and p7 are light sections (0-indexed)
         });
     </script>
 </body>

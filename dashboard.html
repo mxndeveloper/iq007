@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IQ007 — Student Progress Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#003366; --blue-tint:#EAF3FB; --blue2:#0A4C8C;
+    --orange:#FF7A00; --orange-tint:#FFE7CF; --orange2:#FFB35C;
+    --gold:#FFD166; --green:#2FBE6B; --purple:#8B6FE0;
+    --ink:#0F2038; --gray:#5B6B82; --line:#E7ECF3; --bg:#F5F8FC; --white:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',sans-serif;color:var(--ink);background:#0B1420;}
+  h1,h2,h3,.rubik{font-family:'Rubik',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  .lbl-ru{display:block;}
+  .lbl-en{display:block;font-size:.78em;color:var(--gray);font-weight:500;margin-top:1px;}
+
+  /* ============ FRAME CHROME ============ */
+  .figma-page{padding:60px 20px;}
+  .figma-tag{max-width:1440px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:center;color:#7E93AC;font-family:'Rubik';font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+  .figma-tag span.dim{color:#4C5F78;}
+  .frame-shadow{box-shadow:0 40px 90px rgba(0,0,0,.45);border-radius:20px;overflow:hidden;}
+
+  /* ============ DASHBOARD (shared) ============ */
+  .dash{background:var(--bg);}
+  .dash-header{background:var(--blue);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;color:#fff;}
+  .dh-left{display:flex;align-items:center;gap:16px;}
+  .fox-avatar{width:56px;height:56px;flex-shrink:0;}
+  .greet .g1{font-family:'Rubik';font-weight:800;font-size:19px;}
+  .greet .g2{font-size:12px;color:#B9CCE2;}
+  .streak{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);padding:8px 14px;border-radius:20px;font-size:12.5px;font-weight:700;}
+  .streak b{color:var(--gold);}
+  .dh-right{display:flex;align-items:center;gap:14px;}
+  .child-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);padding:6px 14px 6px 6px;border-radius:24px;}
+  .child-chip .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;}
+  .lang-pill{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:16px;overflow:hidden;font-size:11.5px;font-weight:700;}
+  .lang-pill span{padding:5px 10px;}
+  .lang-pill span:first-child{background:var(--orange);}
+
+  .dash-body{padding:28px 32px 8px;display:grid;grid-template-columns:2fr 1fr;gap:22px;align-items:start;}
+  .col-main{display:flex;flex-direction:column;gap:22px;}
+  .col-side{display:flex;flex-direction:column;gap:22px;}
+
+  .card{background:#fff;border-radius:18px;padding:22px;border:1px solid var(--line);}
+  .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .card-title{font-family:'Rubik';font-weight:800;font-size:16px;color:var(--blue);display:flex;align-items:center;gap:8px;}
+  .card-title .en{display:block;font-family:'Inter';font-weight:500;font-size:11px;color:var(--gray);}
+  .tab-row{display:flex;gap:6px;background:var(--bg);padding:4px;border-radius:10px;}
+  .tab-row button{border:none;background:transparent;font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:7px;color:var(--gray);cursor:pointer;font-family:'Rubik';}
+  .tab-row button.active{background:var(--orange);color:#fff;}
+
+  /* progress charts */
+  .progress-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:18px;}
+  .chart-box{border:1px solid var(--line);border-radius:14px;padding:16px;}
+  .chart-box .ct{font-size:12.5px;font-weight:700;color:var(--blue);}
+  .chart-box .ct .en{font-weight:500;color:var(--gray);font-size:10.5px;}
+  .chart-box .delta{font-family:'Rubik';font-weight:800;font-size:20px;color:var(--green);margin:6px 0 2px;}
+  .chart-box .delta small{font-size:11px;color:var(--gray);font-weight:500;}
+  svg.linechart{width:100%;height:70px;overflow:visible;}
+  .linepath{fill:none;stroke:var(--orange);stroke-width:3;stroke-linecap:round;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.6s ease forwards .2s;}
+  .linefill{fill:url(#lg1);opacity:0;animation:fadein 1s ease forwards 1s;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes fadein{to{opacity:1;}}
+  .barwrap{display:flex;align-items:flex-end;gap:8px;height:70px;margin-top:6px;}
+  .barwrap div{flex:1;background:linear-gradient(180deg,var(--blue2),var(--blue));border-radius:5px 5px 0 0;height:0;animation:growbar 1.2s ease forwards;}
+  @keyframes growbar{to{height:var(--h);}}
+  .ring-wrap{display:flex;align-items:center;gap:14px;margin-top:4px;}
+  .ring{width:70px;height:70px;}
+  .ring circle{fill:none;stroke-width:9;}
+  .ring .bg{stroke:#EEF2F7;}
+  .ring .fg{stroke:var(--orange);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;stroke-dasharray:188.5;stroke-dashoffset:188.5;animation:ringgo 1.6s ease forwards .3s;}
+  @keyframes ringgo{to{stroke-dashoffset:var(--off);}}
+  .ring-txt{font-family:'Rubik';font-weight:800;font-size:22px;color:var(--blue);}
+  .ring-txt small{display:block;font-size:10.5px;color:var(--gray);font-weight:500;}
+
+  /* achievements */
+  .badge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .badge{border-radius:14px;padding:16px 10px;text-align:center;border:1.5px solid var(--line);position:relative;}
+  .badge .ic{width:52px;height:52px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+  .badge.gold .ic{background:linear-gradient(135deg,var(--gold),var(--orange));color:#fff;}
+  .badge.blue .ic{background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff;}
+  .badge.purple .ic{background:linear-gradient(135deg,var(--purple),#B49CF0);color:#fff;}
+  .badge.locked{opacity:.5;}
+  .badge.locked .ic{background:#EDF1F6;color:#B7C4D4;}
+  .badge .nm{font-size:11.5px;font-weight:700;color:var(--blue);}
+  .badge .nm .en{font-weight:500;color:var(--gray);font-size:9.5px;}
+  .badge .prog{font-size:10px;color:var(--orange);font-weight:700;margin-top:4px;}
+  .new-tag{position:absolute;top:-8px;right:6px;background:var(--orange);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;}
+
+  /* teacher note */
+  .teacher-row{display:flex;gap:14px;}
+  .t-photo{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue2),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Rubik';font-weight:800;font-size:18px;flex-shrink:0;}
+  .t-name{font-size:13.5px;font-weight:700;color:var(--blue);}
+  .t-role{font-size:11px;color:var(--gray);}
+  .t-stars{color:var(--orange);font-size:12px;margin:4px 0;}
+  .t-note{font-size:13.5px;color:var(--ink);line-height:1.55;margin-top:8px;background:var(--blue-tint);padding:14px;border-radius:12px;}
+  .t-note .en{display:block;color:var(--gray);font-size:11.5px;margin-top:6px;}
+
+  /* recommended */
+  .rec-grid{display:flex;flex-direction:column;gap:12px;}
+  .rec-card{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;}
+  .rec-thumb{width:52px;height:52px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;}
+  .rec-1{background:linear-gradient(135deg,#FF9A3D,var(--orange));}
+  .rec-2{background:linear-gradient(135deg,#6FA8E0,var(--blue2));}
+  .rec-3{background:linear-gradient(135deg,var(--purple),#B49CF0);}
+  .rec-info{flex:1;}
+  .rec-title{font-size:13.5px;font-weight:700;color:var(--blue);}
+  .rec-title .en{display:block;font-weight:500;color:var(--gray);font-size:11px;}
+  .rec-tag{display:inline-block;background:var(--orange-tint);color:#B45300;font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:4px;}
+  .rec-btn{background:var(--blue);color:#fff;font-size:11.5px;font-weight:700;padding:8px 14px;border-radius:9px;font-family:'Rubik';white-space:nowrap;}
+  .ai-chip{display:inline-flex;align-items:center;gap:5px;background:#F0EBFF;color:var(--purple);font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:10px;}
+
+  /* schedule */
+  .sched-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line);}
+  .sched-item:last-child{border-bottom:none;}
+  .sched-date{width:46px;text-align:center;background:var(--blue-tint);border-radius:10px;padding:6px 0;flex-shrink:0;}
+  .sched-date .d{font-family:'Rubik';font-weight:800;color:var(--blue);font-size:15px;}
+  .sched-date .m{font-size:9.5px;color:var(--gray);text-transform:uppercase;}
+  .sched-title{font-size:13px;font-weight:700;color:var(--blue);}
+  .sched-title .en{display:block;font-weight:500;color:var(--gray);font-size:10.5px;}
+  .sched-time{font-size:11px;color:var(--orange);font-weight:700;margin-top:2px;}
+
+  /* footer */
+  .dash-footer{background:var(--blue);color:#fff;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-info{font-size:11.5px;color:#B9CCE2;line-height:1.6;}
+  .foot-info b{color:#fff;}
+  .share-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(120deg,var(--orange),var(--orange2));color:#fff;padding:12px 20px;border-radius:12px;font-family:'Rubik';font-weight:800;font-size:13.5px;border:none;cursor:pointer;}
+  .foot-chans{display:flex;gap:14px;font-size:12px;color:#CFE0F2;}
+
+  .stat-mini-row{display:flex;gap:10px;}
+  .stat-mini{flex:1;background:var(--blue-tint);border-radius:12px;padding:12px;text-align:center;}
+  .stat-mini .n{font-family:'Rubik';font-weight:800;color:var(--blue);font-size:18px;}
+  .stat-mini .l{font-size:10px;color:var(--gray);}
+
+  /* ============ MOBILE FRAME ============ */
+  .phone-shell{width:390px;margin:0 auto;background:#000;border-radius:44px;padding:14px;box-shadow:0 40px 90px rgba(0,0,0,.5);}
+  .phone-notch{width:120px;height:22px;background:#000;border-radius:0 0 16px 16px;margin:0 auto;position:relative;top:0;z-index:5;}
+  .phone-screen{background:var(--bg);border-radius:32px;overflow:hidden;max-height:844px;overflow-y:auto;}
+  .m-header{background:var(--blue);padding:16px 18px;color:#fff;}
+  .m-header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .m-fox{width:40px;height:40px;}
+  .m-greet{font-family:'Rubik';font-weight:800;font-size:15px;}
+  .m-greet .en{font-size:10.5px;color:#B9CCE2;font-weight:500;}
+  .m-streak{background:rgba(255,255,255,.1);border-radius:16px;padding:6px 12px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px;}
+  .m-body{padding:16px;display:flex;flex-direction:column;gap:16px;}
+  .m-progress-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;}
+  .m-chart{min-width:140px;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;}
+  .m-badge-scroll{display:flex;gap:10px;overflow-x:auto;}
+  .m-badge{min-width:84px;text-align:center;background:#fff;border-radius:12px;padding:10px;border:1px solid var(--line);}
+  .bottom-nav{display:flex;justify-content:space-around;background:#fff;border-top:1px solid var(--line);padding:10px 0 14px;position:sticky;bottom:0;}
+  .bottom-nav div{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9.5px;color:var(--gray);font-weight:700;}
+  .bottom-nav div.active{color:var(--orange);}
+  .bottom-nav .ic{font-size:18px;}
+
+  @media(max-width:1200px){
+    .dash-body{grid-template-columns:1fr;}
+    .progress-grid{grid-template-columns:1fr 1fr;}
+    .badge-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= DESKTOP FRAME ================= -->
+<div class="figma-page">
+  <div class="figma-tag"><span>Frame — Student Progress Dashboard <span class="dim">/ Desktop</span></span><span class="dim">1440 × auto · Figma mockup</span></div>
+  <div class="frame-shadow" style="max-width:1440px;margin:0 auto;">
+    <div class="dash">
+
+      <!-- HEADER -->
+      <div class="dash-header">
+        <div class="dh-left">
+          <svg class="fox-avatar" viewBox="0 0 64 64"><defs><radialGradient id="fah" cx="35%" cy="25%" r="85%"><stop offset="0" stop-color="#FFC98A"/><stop offset="100%" stop-color="#FF7A00"/></radialGradient></defs><circle cx="32" cy="32" r="32" fill="url(#fah)"/><path d="M20 26 L14 14 L26 20 Z" fill="#003366"/><path d="M44 26 L50 14 L38 20 Z" fill="#003366"/><ellipse cx="32" cy="36" rx="16" ry="14" fill="#fff"/><circle cx="26" cy="34" r="2.6" fill="#003366"/><circle cx="38" cy="34" r="2.6" fill="#003366"/><path d="M28 42 Q32 46 36 42" stroke="#003366" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+          <div class="greet">
+            <div class="g1">Привет, Алежандро! 👋</div>
+            <div class="g2">Алексито! Рад снова тебя видеть!</div>
+          </div>
+        </div>
+        <div class="streak">🔥 <span data-x>Серия дней: <b>12</b></span></div>
+        <div class="dh-right">
+          <div class="child-chip"><div class="av">М</div><div><div style="font-size:12px;font-weight:700;">Алежандро, 6 лет</div><div style="font-size:10px;color:#B9CCE2;">Группа «Совята»</div></div></div>
+          <div class="lang-pill"><span>RU</span><span>EN</span></div>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="dash-body">
+        <div class="col-main">
+
+          <!-- PROGRESS -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">📈 Прогресс<span class="en">Progress overview</span></div>
+              <div class="tab-row"><button class="active">Месяц</button><button>Неделя</button><button>Год</button></div>
+            </div>
+            <div class="progress-grid">
+              <div class="chart-box">
+                <div class="ct">Скорость чтения<span class="en">Reading speed</span></div>
+                <div class="delta">+38% <small>слов/мин · wpm</small></div>
+                <svg class="linechart" viewBox="0 0 220 70">
+                  <defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF7A00" stop-opacity=".3"/><stop offset="1" stop-color="#FF7A00" stop-opacity="0"/></linearGradient></defs>
+                  <path class="linefill" d="M0,60 L36,50 L72,44 L108,36 L144,26 L180,18 L216,8 L216,70 L0,70 Z"/>
+                  <path class="linepath" d="M0,60 L36,50 L72,44 L108,36 L144,26 L180,18 L216,8"/>
+                </svg>
+              </div>
+              <div class="chart-box">
+                <div class="ct">Память<span class="en">Memory recall</span></div>
+                <div class="delta">+22% <small>точность · accuracy</small></div>
+                <div class="barwrap">
+                  <div style="--h:34%;animation-delay:.1s"></div>
+                  <div style="--h:48%;animation-delay:.2s"></div>
+                  <div style="--h:55%;animation-delay:.3s"></div>
+                  <div style="--h:70%;animation-delay:.4s"></div>
+                  <div style="--h:88%;animation-delay:.5s"></div>
+                </div>
+              </div>
+              <div class="chart-box">
+                <div class="ct">Каллиграфия<span class="en">Calligraphy</span></div>
+                <div class="ring-wrap">
+                  <svg class="ring" viewBox="0 0 70 70">
+                    <circle class="bg" cx="35" cy="35" r="30"/>
+                    <circle class="fg" cx="35" cy="35" r="30" style="--off:41.5"/>
+                  </svg>
+                  <div class="ring-txt">78%<small>к цели · to goal</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACHIEVEMENTS -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">🏆 Достижения<span class="en">Achievements</span></div>
+              <div style="font-size:11.5px;color:var(--gray);font-weight:700;">7 / 12 <span style="color:var(--gray);font-weight:500;">открыто · unlocked</span></div>
+            </div>
+            <div class="badge-grid">
+              <div class="badge gold"><div class="new-tag">NEW</div><div class="ic">⚡</div><div class="nm">Скорочтец, ур.3<span class="en">Speed Reader Lvl 3</span></div></div>
+              <div class="badge blue"><div class="ic">🧠</div><div class="nm">Мастер памяти<span class="en">Memory Master</span></div></div>
+              <div class="badge purple"><div class="ic">✍️</div><div class="nm">Каллиграф-звезда<span class="en">Calligraphy Star</span></div></div>
+              <div class="badge locked"><div class="ic">🔒</div><div class="nm">10-дневная серия<span class="en">10-Day Streak</span></div><div class="prog">8/10</div></div>
+            </div>
+          </div>
+
+          <!-- RECOMMENDED -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">✨ Рекомендовано для вас<span class="en">Recommended for you</span></div>
+              <span class="ai-chip">🤖 AI-подбор · AI-picked</span>
+            </div>
+            <div class="rec-grid">
+              <div class="rec-card">
+                <div class="rec-thumb rec-1">⚡</div>
+                <div class="rec-info">
+                  <div class="rec-title">Слова-вспышки<span class="en">Flash-word speed drill</span></div>
+                  <span class="rec-tag">5 мин · 5 min</span>
+                </div>
+                <div class="rec-btn">Начать · Start</div>
+              </div>
+              <div class="rec-card">
+                <div class="rec-thumb rec-2">🗺️</div>
+                <div class="rec-info">
+                  <div class="rec-title">Карты городов<span class="en">City-map memory trainer</span></div>
+                  <span class="rec-tag">8 мин · 8 min</span>
+                </div>
+                <div class="rec-btn">Начать · Start</div>
+              </div>
+              <div class="rec-card">
+                <div class="rec-thumb rec-3">✏️</div>
+                <div class="rec-info">
+                  <div class="rec-title">Пропись: буква «Ж»<span class="en">Copybook: letter "Ж"</span></div>
+                  <span class="rec-tag">6 мин · 6 min</span>
+                </div>
+                <div class="rec-btn">Начать · Start</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="col-side">
+
+          <div class="card">
+            <div class="stat-mini-row">
+              <div class="stat-mini"><div class="n">42</div><div class="l">урока пройдено<br>lessons done</div></div>
+              <div class="stat-mini"><div class="n">96%</div><div class="l">посещаемость<br>attendance</div></div>
+              <div class="stat-mini"><div class="n">4.9</div><div class="l">оценка учителя<br>teacher score</div></div>
+            </div>
+          </div>
+
+          <!-- TEACHER NOTE -->
+          <div class="card">
+            <div class="card-title" style="margin-bottom:14px;">💌 Заметка учителя<span class="en">Teacher's note</span></div>
+            <div class="teacher-row">
+              <div class="t-photo">АП</div>
+              <div>
+                <div class="t-name">Анна Петровна</div>
+                <div class="t-role">Педагог по скорочтению · Speed-reading teacher</div>
+                <div class="t-stars">★★★★★</div>
+              </div>
+            </div>
+            <div class="t-note">
+              Алежандро отлично справился с блочным чтением на этой неделе — читает увереннее и с хорошей интонацией. Продолжаем закреплять технику дома по 10 минут в день!
+              <span class="en">Mark did great with chunk-reading this week — reading more confidently and with good intonation. Let's keep practicing 10 minutes a day at home!</span>
+            </div>
+          </div>
+
+          <!-- WHAT'S NEXT -->
+          <div class="card">
+            <div class="card-title" style="margin-bottom:6px;">📅 Что дальше<span class="en">What's next</span></div>
+            <div class="sched-item">
+              <div class="sched-date"><div class="d">22</div><div class="m">июл</div></div>
+              <div><div class="sched-title">Скорочтение<span class="en">Speed Reading</span></div><div class="sched-time">17:00 · Анна Петровна</div></div>
+            </div>
+            <div class="sched-item">
+              <div class="sched-date"><div class="d">24</div><div class="m">июл</div></div>
+              <div><div class="sched-title">Тренировка памяти<span class="en">Memory Training</span></div><div class="sched-time">17:00 · Игорь Львович</div></div>
+            </div>
+            <div class="sched-item">
+              <div class="sched-date"><div class="d">26</div><div class="m">июл</div></div>
+              <div><div class="sched-title">Каллиграфия<span class="en">Calligraphy</span></div><div class="sched-time">16:30 · Анна Петровна</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="dash-footer">
+        <div class="foot-info">
+          <b>IQ007</b> · Школа развития интеллекта · Whole-brain development school<br>
+          ✈️ @iq007school &nbsp; 💬 +7 999 000-00-00 &nbsp; ✉️ hello@iq007.ru
+        </div>
+        <div class="foot-chans">🔒 Данные защищены (152-ФЗ) · Data protected (152-FZ)</div>
+        <button class="share-btn">📤 Поделиться прогрессом · Share progress</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= MOBILE FRAME ================= -->
+<div class="figma-page">
+  <div class="figma-tag"><span>Frame — Student Progress Dashboard <span class="dim">/ Mobile</span></span><span class="dim">390 × 844 · Figma mockup</span></div>
+  <div class="phone-shell">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+      <div class="m-header">
+        <div class="m-header-top">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg class="m-fox" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#FF7A00"/><path d="M20 26 L14 14 L26 20 Z" fill="#003366"/><path d="M44 26 L50 14 L38 20 Z" fill="#003366"/><ellipse cx="32" cy="36" rx="16" ry="14" fill="#fff"/><circle cx="26" cy="34" r="2.6" fill="#003366"/><circle cx="38" cy="34" r="2.6" fill="#003366"/><path d="M28 42 Q32 46 36 42" stroke="#003366" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            <div class="m-greet">Привет, Марк! 👋<span class="en">Hi, Mark!</span></div>
+          </div>
+          <div class="m-streak">🔥 12</div>
+        </div>
+      </div>
+
+      <div class="m-body">
+        <div class="card" style="padding:14px;">
+          <div class="card-title" style="font-size:14px;">📈 Прогресс<span class="en">Progress</span></div>
+          <div class="m-progress-scroll">
+            <div class="m-chart">
+              <div class="ct">Чтение<span class="en">Reading</span></div>
+              <div class="delta" style="font-size:16px;">+38%</div>
+              <svg class="linechart" viewBox="0 0 140 50" style="height:44px;">
+                <path class="linepath" d="M0,40 L23,34 L46,29 L69,22 L92,15 L116,8 L140,4" style="stroke-dasharray:260;animation:draw 1.4s ease forwards .1s;"/>
+              </svg>
+            </div>
+            <div class="m-chart">
+              <div class="ct">Память<span class="en">Memory</span></div>
+              <div class="delta" style="font-size:16px;">+22%</div>
+              <div class="barwrap" style="height:44px;">
+                <div style="--h:34%"></div><div style="--h:55%"></div><div style="--h:70%"></div><div style="--h:88%"></div>
+              </div>
+            </div>
+            <div class="m-chart">
+              <div class="ct">Каллиграфия<span class="en">Calligraphy</span></div>
+              <div class="ring-wrap" style="margin-top:2px;">
+                <svg class="ring" viewBox="0 0 70 70" style="width:52px;height:52px;">
+                  <circle class="bg" cx="35" cy="35" r="30"/>
+                  <circle class="fg" cx="35" cy="35" r="30" style="--off:41.5"/>
+                </svg>
+                <div class="ring-txt" style="font-size:16px;">78%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px;">
+          <div class="card-title" style="font-size:14px;">🏆 Достижения<span class="en">Achievements</span></div>
+          <div class="m-badge-scroll">
+            <div class="m-badge"><div class="ic" style="width:40px;height:40px;font-size:18px;background:linear-gradient(135deg,var(--gold),var(--orange));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;">⚡</div><div class="nm" style="font-size:10px;font-weight:700;color:var(--blue);">Скорочтец 3</div></div>
+            <div class="m-badge"><div class="ic" style="width:40px;height:40px;font-size:18px;background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;">🧠</div><div class="nm" style="font-size:10px;font-weight:700;color:var(--blue);">Мастер памяти</div></div>
+            <div class="m-badge"><div class="ic" style="width:40px;height:40px;font-size:18px;background:#EDF1F6;color:#B7C4D4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;">🔒</div><div class="nm" style="font-size:10px;font-weight:700;color:var(--blue);">Серия 10 дней</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px;">
+          <div class="card-title" style="font-size:14px;margin-bottom:10px;">💌 Заметка учителя<span class="en">Teacher's note</span></div>
+          <div class="teacher-row">
+            <div class="t-photo" style="width:42px;height:42px;font-size:14px;">АП</div>
+            <div><div class="t-name" style="font-size:12px;">Анна Петровна</div><div class="t-stars" style="font-size:11px;">★★★★★</div></div>
+          </div>
+          <div class="t-note" style="font-size:12px;margin-top:8px;">Марк читает увереннее и с хорошей интонацией!<span class="en">Mark is reading more confidently this week!</span></div>
+        </div>
+
+        <div class="card" style="padding:14px;">
+          <div class="card-title" style="font-size:14px;">✨ Рекомендовано<span class="en">For you</span></div>
+          <div class="rec-grid">
+            <div class="rec-card" style="padding:10px;">
+              <div class="rec-thumb rec-1" style="width:40px;height:40px;font-size:18px;">⚡</div>
+              <div class="rec-info"><div class="rec-title" style="font-size:12px;">Слова-вспышки<span class="en">Flash words</span></div></div>
+              <div class="rec-btn" style="font-size:10.5px;padding:6px 10px;">Начать</div>
+            </div>
+            <div class="rec-card" style="padding:10px;">
+              <div class="rec-thumb rec-2" style="width:40px;height:40px;font-size:18px;">🗺️</div>
+              <div class="rec-info"><div class="rec-title" style="font-size:12px;">Карты городов<span class="en">City maps</span></div></div>
+              <div class="rec-btn" style="font-size:10.5px;padding:6px 10px;">Начать</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px;">
+          <div class="card-title" style="font-size:14px;margin-bottom:6px;">📅 Что дальше<span class="en">Next up</span></div>
+          <div class="sched-item">
+            <div class="sched-date" style="width:38px;"><div class="d" style="font-size:13px;">22</div><div class="m">июл</div></div>
+            <div><div class="sched-title" style="font-size:12px;">Скорочтение<span class="en">Speed Reading</span></div><div class="sched-time" style="font-size:10px;">17:00</div></div>
+          </div>
+          <div class="sched-item">
+            <div class="sched-date" style="width:38px;"><div class="d" style="font-size:13px;">24</div><div class="m">июл</div></div>
+            <div><div class="sched-title" style="font-size:12px;">Память<span class="en">Memory</span></div><div class="sched-time" style="font-size:10px;">17:00</div></div>
+          </div>
+        </div>
+
+        <button class="share-btn" style="width:100%;justify-content:center;">📤 Поделиться прогрессом<span class="en" style="color:#FFE9D3;">Share progress</span></button>
+        <div style="text-align:center;font-size:10px;color:var(--gray);">🔒 152-ФЗ · IQ007 · @iq007school</div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="active"><span class="ic">🏠</span>Главная</div>
+        <div><span class="ic">📈</span>Прогресс</div>
+        <div><span class="ic">🏆</span>Награды</div>
+        <div><span class="ic">💬</span>Чат</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
