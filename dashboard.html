@@ -56,7 +56,14 @@
     border-radius:50%;
     border:3px solid var(--orange);
     object-fit:cover;
-    background:#fff;
+    background: var(--blue-tint);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Rubik';
+    font-weight:800;
+    font-size:20px;
+    color:var(--blue);
   }
   .greet .g1{font-family:'Rubik';font-weight:800;font-size:19px;}
   .greet .g2{font-size:12px;color:#B9CCE2;}
@@ -92,7 +99,14 @@
     border:2px solid var(--orange);
     object-fit:cover;
     flex-shrink:0;
-    background:#fff;
+    background: var(--blue-tint);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Rubik';
+    font-weight:800;
+    font-size:13px;
+    color:var(--blue);
   }
   .lang-pill{
     display:flex;
@@ -483,8 +497,8 @@
     <!-- HEADER -->
     <div class="dash-header">
       <div class="dh-left">
-        <!-- student photo instead of fox icon -->
-        <img class="fox-avatar" src="student-photo.jpg" alt="Александр">
+        <!-- Main avatar – now points to images/ folder with proper fallback -->
+        <img class="fox-avatar" src="images/student-photo.jpg" alt="Александр" onerror="this.outerHTML='<div class=\'fox-avatar\' style=\'display:flex; align-items:center; justify-content:center;\'>А</div>';">
         <div class="greet">
           <div class="g1">Привет, Александр! 👋</div>
           <div class="g2">Hi, Alexander! Great to see you again</div>
@@ -493,9 +507,9 @@
       <div class="streak">🔥 <span>Серия дней: <b>12</b></span></div>
       <div class="dh-right">
         <div class="child-chip">
-          <!-- student photo in chip instead of letter -->
-          <img class="av" src="student-photo.jpg" alt="Александр">
-          <div><div style="font-size:12px;font-weight:700;">Александр, 8 лет</div><div style="font-size:10px;color:#B9CCE2;">Группа «Совята»</div></div>
+          <!-- Chip avatar – also points to images/ folder with fallback -->
+          <img class="av" src="images/student-photo.jpg" alt="Александр" onerror="this.outerHTML='<div class=\'av\' style=\'display:flex; align-items:center; justify-content:center;\'>А</div>';">
+          <div><div style="font-size:12px;font-weight:700;">Александр, 6 лет</div><div style="font-size:10px;color:#B9CCE2;">Группа «Совята»</div></div>
         </div>
         <div class="lang-pill"><span>RU</span><span>EN</span></div>
       </div>
