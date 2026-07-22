@@ -49,7 +49,15 @@
     gap:16px;
     flex-wrap:wrap;
   }
-  .fox-avatar{width:56px;height:56px;flex-shrink:0;}
+  .fox-avatar{
+    width:56px;
+    height:56px;
+    flex-shrink:0;
+    border-radius:50%;
+    border:3px solid var(--orange);
+    object-fit:cover;
+    background:#fff;
+  }
   .greet .g1{font-family:'Rubik';font-weight:800;font-size:19px;}
   .greet .g2{font-size:12px;color:#B9CCE2;}
   .streak{
@@ -78,11 +86,13 @@
     border-radius:24px;
   }
   .child-chip .av{
-    width:32px;height:32px;
+    width:32px;
+    height:32px;
     border-radius:50%;
-    background:linear-gradient(135deg,var(--orange),var(--gold));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:13px;color:#fff;
+    border:2px solid var(--orange);
+    object-fit:cover;
+    flex-shrink:0;
+    background:#fff;
   }
   .lang-pill{
     display:flex;
@@ -473,15 +483,20 @@
     <!-- HEADER -->
     <div class="dash-header">
       <div class="dh-left">
-        <svg class="fox-avatar" viewBox="0 0 64 64"><defs><radialGradient id="fah" cx="35%" cy="25%" r="85%"><stop offset="0" stop-color="#FFC98A"/><stop offset="100%" stop-color="#FF7A00"/></radialGradient></defs><circle cx="32" cy="32" r="32" fill="url(#fah)"/><path d="M20 26 L14 14 L26 20 Z" fill="#003366"/><path d="M44 26 L50 14 L38 20 Z" fill="#003366"/><ellipse cx="32" cy="36" rx="16" ry="14" fill="#fff"/><circle cx="26" cy="34" r="2.6" fill="#003366"/><circle cx="38" cy="34" r="2.6" fill="#003366"/><path d="M28 42 Q32 46 36 42" stroke="#003366" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+        <!-- student photo instead of fox icon -->
+        <img class="fox-avatar" src="student-photo.jpg" alt="Александр">
         <div class="greet">
-          <div class="g1">Привет, Марк! 👋</div>
-          <div class="g2">Hi, Mark! Great to see you again</div>
+          <div class="g1">Привет, Александр! 👋</div>
+          <div class="g2">Hi, Alexander! Great to see you again</div>
         </div>
       </div>
       <div class="streak">🔥 <span>Серия дней: <b>12</b></span></div>
       <div class="dh-right">
-        <div class="child-chip"><div class="av">М</div><div><div style="font-size:12px;font-weight:700;">Марк, 8 лет</div><div style="font-size:10px;color:#B9CCE2;">Группа «Совята»</div></div></div>
+        <div class="child-chip">
+          <!-- student photo in chip instead of letter -->
+          <img class="av" src="student-photo.jpg" alt="Александр">
+          <div><div style="font-size:12px;font-weight:700;">Александр, 8 лет</div><div style="font-size:10px;color:#B9CCE2;">Группа «Совята»</div></div>
+        </div>
         <div class="lang-pill"><span>RU</span><span>EN</span></div>
       </div>
     </div>
@@ -603,8 +618,8 @@
             </div>
           </div>
           <div class="t-note">
-            Марк отлично справился с блочным чтением на этой неделе — читает увереннее и с хорошей интонацией. Продолжаем закреплять технику дома по 10 минут в день!
-            <span class="en">Mark did great with chunk-reading this week — reading more confidently and with good intonation. Let's keep practicing 10 minutes a day at home!</span>
+            Александр отлично справился с блочным чтением на этой неделе — читает увереннее и с хорошей интонацией. Продолжаем закреплять технику дома по 10 минут в день!
+            <span class="en">Alexander did great with chunk-reading this week — reading more confidently and with good intonation. Let's keep practicing 10 minutes a day at home!</span>
           </div>
         </div>
 

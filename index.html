@@ -695,8 +695,14 @@
         }
         .growth-metrics .metric .change {
             font-size: 12px;
-            color: var(--green);
+            color: #7BB8F0; /* FIXED: lighter blue for better contrast against dark background */
             font-weight: 700;
+        }
+        /* fix for mobile formatting */
+        .growth-inner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
         }
 
         /* ================= TESTIMONIALS ================= */
@@ -883,16 +889,8 @@
             .growth-metrics {
                 gap: 16px;
             }
-            /* fix for mobile formatting */
             .growth-inner-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 24px;
-            }
-            @media(max-width:920px) {
-                .growth-inner-grid {
-                    grid-template-columns: 1fr;
-                }
+                grid-template-columns: 1fr;
             }
         }
         @media print {
@@ -1013,7 +1011,7 @@
                         <li><span class="check">✓</span><span>Локальная база лидов (SQLite)<span class="en">Local lead database (SQLite)</span></span></li>
                         <li><span class="check">✓</span><span>152-ФЗ: без хранения лишних данных<span class="en">152-FZ: no excess data storage</span></span></li>
                     </ul>
-                    <a class="tier-btn" href="#p7">Выбрать Economy · Choose Economy</a>
+                    <a class="tier-btn" href="#p8">Выбрать Economy · Choose Economy</a>
                 </div>
 
                 <!-- STANDARD -->
@@ -1032,7 +1030,7 @@
                         <li><span class="check">✓</span><span>ИИ-ассистент на базе Ollama<span class="en">Ollama-powered AI assistant</span></span></li>
                         <li><span class="check">✓</span><span>Интеграция с Яндекс.Почтой<span class="en">Yandex.Mail integration</span></span></li>
                     </ul>
-                    <a class="tier-btn" href="#p7">Выбрать Standard · Choose Standard</a>
+                    <a class="tier-btn" href="#p8">Выбрать Standard · Choose Standard</a>
                 </div>
 
                 <!-- PREMIUM -->
@@ -1053,7 +1051,7 @@
                         <li><span class="check">✓</span><span>3D-анимированное видео на главной<span class="en">3D animated hero video</span></span></li>
                         <li><span class="check">✓</span><span>Юридический пакет + обучение персонала<span class="en">Legal package + staff training</span></span></li>
                     </ul>
-                    <a class="tier-btn" href="#p7">Выбрать Premium · Choose Premium</a>
+                    <a class="tier-btn" href="#p8">Выбрать Premium · Choose Premium</a>
                 </div>
             </div>
         </div>
@@ -1160,7 +1158,7 @@
                     <div class="gc-icon">🛒</div>
                     <h3>Marketplace & Digital Products<span class="en">Встроенный магазин</span></h3>
                     <p>Разработаем и встроим магазин цифровых товаров: интерактивные рабочие тетради, развивающие игры, видеокурсы и премиум‑контент. Вы получаете <b>пассивный доход</b> и повышаете LTV каждого клиента.</p>
-                    <a class="gc-btn" href="#p7">Узнать подробнее · Learn more</a>
+                    <a class="gc-btn" href="#p8">Узнать подробнее · Learn more</a>
                 </div>
 
                 <!-- Dashboard Upsell -->
@@ -1176,36 +1174,36 @@
                     <div class="gc-icon">📱</div>
                     <h3>Social Sharing & Rewards<span class="en">Социальный вирусный рост</span></h3>
                     <p>Родители получают <b>бонусы, скидки и эксклюзивные материалы</b> за публикацию успехов детей в соцсетях. Это превращает их в <b>бесплатных амбассадоров</b> – каждый репост приносит новых лидов.</p>
-                    <a class="gc-btn" href="#p7">Обсудить механику · Discuss mechanics</a>
+                    <a class="gc-btn" href="#p8">Обсудить механику · Discuss mechanics</a>
                 </div>
             </div>
 
             <!-- additional growth strategies -->
             <div style="margin-top: 34px; background: #0A1B2E; border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,.06);">
-    <div class="growth-inner-grid">
-        <div>
-            <h4 style="color: var(--gold); font-family: 'Rubik'; font-weight: 700; font-size: 16px; margin: 0 0 8px;">🚀 Как мы увеличим трафик</h4>
-            <ul style="color: #CBD8E8; font-size: 13.5px; line-height: 1.7; padding-left: 20px; margin: 0;">
-                <li><b>SEO‑оптимизация</b> – рост органического трафика на 30–40%</li>
-                <li><b>Интеграция соцсетей</b> – автоматический шеринг достижений</li>
-                <li><b>Реферальная программа</b> – скидки за приведённых друзей</li>
-                <li><b>Контент‑маркетинг</b> – полезные статьи и видео для родителей</li>
-            </ul>
-        </div>
-        <div>
-            <h4 style="color: var(--gold); font-family: 'Rubik'; font-weight: 700; font-size: 16px; margin: 0 0 8px;">🎯 Дополнительные монетизационные каналы</h4>
-            <ul style="color: #CBD8E8; font-size: 13.5px; line-height: 1.7; padding-left: 20px; margin: 0;">
-                <li><b>Premium‑подписка</b> на расширенную аналитику и отчёты</li>
-                <li><b>Партнёрские интеграции</b> с книжными издательствами и обучающими платформами</li>
-                <li><b>Онлайн‑курсы</b> для родителей по развитию детей</li>
-                <li><b>Рекламные места</b> в дашборде и мобильном приложении</li>
-            </ul>
-        </div>
-    </div>
-    <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #9FB4CC;">
-        * Все цифры основаны на реальных данных текущего сайта IQ007 и прогнозах роста после внедрения платформы.
-    </div>
-</div>
+                <div class="growth-inner-grid">
+                    <div>
+                        <h4 style="color: var(--gold); font-family: 'Rubik'; font-weight: 700; font-size: 16px; margin: 0 0 8px;">🚀 Как мы увеличим трафик</h4>
+                        <ul style="color: #CBD8E8; font-size: 13.5px; line-height: 1.7; padding-left: 20px; margin:0;">
+                            <li><b>SEO‑оптимизация</b> – рост органического трафика на 30–40%</li>
+                            <li><b>Интеграция соцсетей</b> – автоматический шеринг достижений</li>
+                            <li><b>Реферальная программа</b> – скидки за приведённых друзей</li>
+                            <li><b>Контент‑маркетинг</b> – полезные статьи и видео для родителей</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--gold); font-family: 'Rubik'; font-weight: 700; font-size: 16px; margin: 0 0 8px;">🎯 Дополнительные монетизационные каналы</h4>
+                        <ul style="color: #CBD8E8; font-size: 13.5px; line-height: 1.7; padding-left: 20px; margin:0;">
+                            <li><b>Premium‑подписка</b> на расширенную аналитику и отчёты</li>
+                            <li><b>Партнёрские интеграции</b> с книжными издательствами и обучающими платформами</li>
+                            <li><b>Онлайн‑курсы</b> для родителей по развитию детей</li>
+                            <li><b>Рекламные места</b> в дашборде и мобильном приложении</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #9FB4CC;">
+                    * Все цифры основаны на реальных данных текущего сайта IQ007 и прогнозах роста после внедрения платформы.
+                </div>
+            </div>
         </div>
     </section>
 
